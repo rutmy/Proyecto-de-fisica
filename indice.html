@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tercera Ley de Newton</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(-45deg, #e2a90d, #fad0c4, #fbc2eb, #a6c1ee);
+      background-size: 400% 400%;
+      animation: gradiente 12s ease infinite;
+      color: #1e1f20;
+    }
+
+    @keyframes gradiente {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+
+    .pantalla-inicio {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: rgba(234, 88, 247, 0.585);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      text-align: center;
+    }
+
+    .pantalla-inicio h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .pantalla-inicio p {
+      font-size: 1.2rem;
+      margin-bottom: 20px;
+    }
+
+    .pantalla-inicio button {
+      background-color: #e74985;
+      color: rgb(219, 217, 217);
+      border: none;
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .pantalla-inicio button:hover {
+      background-color: #ffd8f1;
+      transform: scale(1.05);
+    }
+
+    .card {
+      background-color: white;
+      padding: 20px;
+      margin: 30px auto;
+      max-width: 800px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1, h2 {
+      margin-top: 0;
+    }
+
+    input, button {
+      padding: 10px;
+      margin: 5px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+
+    button {
+      background-color: #60aadc;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #2ecc71;
+      transform: scale(1.05);
+    }
+
+    img {
+      margin-top: 15px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+
+    #resultado {
+      margin-top: 10px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    #simulacion {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 30px;
+    }
+
+    #objeto1, #objeto2 {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+    }
+
+    #objeto1 { background-color: red; }
+    #objeto2 { background-color: blue; }
+  </style>
+</head>
+<body>
+
+  <div class="pantalla-inicio" id="inicio">
+    <h1>¡Bienvenido! 🚀</h1>
+    <p>Explora la Tercera Ley de Newton con ejemplos, simulaciones y una calculadora interactiva.</p>
+    <button onclick="entrar()">Entrar al sitio</button>
+  </div>
+
+  <div id="contenido" style="display:none;">
+    <div class="card">
+      <h1>🔁 Tercera Ley de Newton</h1>
+      <p>“A toda acción corresponde una reacción de igual magnitud y en sentido contrario.”</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Newton-third-law.svg/640px-Newton-third-law.svg.png" alt="Ley de acción y reacción">
+    </div>
+
+    <div class="card">
+      <h2>🧮 Calculadora de Fuerza</h2>
+      <input type="number" id="masa" placeholder="Masa (kg)">
+      <input type="number" id="aceleracion" placeholder="Aceleración (m/s²)">
+      <br>
+      <button onclick="calcularFuerza()">Calcular Fuerza</button>
+      <p id="resultado"></p>
+    </div>
+
+    <div class="card">
+      <h2>💥 Simulación de Acción y Reacción</h2>
+      <div id="simulacion">
+        <div id="objeto1"></div>
+        <div id="objeto2"></div>
+      </div>
+      <button onclick="empezarSimulacion()">Simular Fuerzas</button>
+      <button onclick="resetSimulacion()">Reiniciar</button>
+    </div>
+
+    <div class="card">
+      <h2>📚 Ejemplos Reales</h2>
+      <p>Cuando empujas una pared, la pared te empuja con la misma fuerza:</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/1/15/Newtons_cradle_animation_book_2.gif" alt="Ejemplo de acción y reacción">
+      <p>El retroceso de un arma es una reacción a la bala saliendo:</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Newtongun.jpg/640px-Newtongun.jpg" alt="Ejemplo con arma">
+    </div>
+
+    <div class="card">
+      <h2>✨ Sabías que...</h2>
+      <p>La Tercera Ley de Newton también explica cómo funcionan los cohetes 🚀. Al expulsar gases hacia atrás, el cohete se impulsa hacia adelante. ¡Sin esta ley, no podríamos explorar el espacio!</p>
+      <img src="https://upload.wikimedia.org/wikipedia/commons/8/83/Rocket_engine_newton_third_law_animation.gif" alt="Cohete y tercera ley">
+    </div>
+  </div>
+
+  <script>
+    function entrar() {
+      const inicio = document.getElementById("inicio");
+      const contenido = document.getElementById("contenido");
+      inicio.style.display = "none";
+      contenido.style.display = "block";
+    }
+
+    function calcularFuerza() {
+      const masa = parseFloat(document.getElementById("masa").value);
+      const aceleracion = parseFloat(document.getElementById("aceleracion").value);
+      const resultado = document.getElementById("resultado");
+
+      if (!isNaN(masa) && !isNaN(aceleracion)) {
+        const fuerza = masa * aceleracion;
+        resultado.textContent = `Fuerza: ${fuerza.toFixed(2)} N`;
+      } else {
+        resultado.textContent = "Por favor ingresa valores válidos.";
+      }
+    }
+
+    function empezarSimulacion() {
+      const obj1 = document.getElementById("objeto1");
+      const obj2 = document.getElementById("objeto2");
+      obj1.style.transition = "transform 1s";
+      obj2.style.transition = "transform 1s";
+      obj1.style.transform = "translateX(50px)";
+      obj2.style.transform = "translateX(-50px)";
+    }
+
+    function resetSimulacion() {
+      const obj1 = document.getElementById("objeto1");
+      const obj2 = document.getElementById("objeto2");
+      obj1.style.transform = "translateX(0)";
+      obj2.style.transform = "translateX(0)";
+    }
+  </script>
+
+</body>
+</html>
